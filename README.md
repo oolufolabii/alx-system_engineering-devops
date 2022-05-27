@@ -1,1 +1,1 @@
-Repo for script assignment
+Some bash scripting
