@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# a Bash script that displays numbers from 1 to 20 and checks certain conditions
+
+INDEX=1
+while [ $INDEX -lt 21 ]
+do
+    case $INDEX in
+
+        4)
+	    echo $INDEX
+	    echo "bad luck from China"
+	    ;;
+	
+	9)
+	    echo $INDEX
+	    echo "bad luck from Japan"
+	    ;;
+	
+	17)
+	    echo $INDEX
+	    echo "bad luck from Italy"
+	    ;;
+
+	*)
+	    echo $INDEX
+	    ;;
+    esac
+
+    let INDEX+=1
+done
