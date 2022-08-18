@@ -5,5 +5,5 @@ INDEX=10
 until [ $INDEX -lt 1 ]
 do
     echo "Best School"
-    let (INDEX-=1)
+    let INDEX-=1
 done
