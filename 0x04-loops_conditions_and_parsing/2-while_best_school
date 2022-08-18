@@ -2,4 +2,4 @@
 # This script is displaying "Best School" 10 times using while loop
 
 i=0
-while [ $i -lt 10 ]; do echo "Best School"; i=`expr $i + 1`; done
+while [ $i -lt 10 ]; do echo "Holberton School"; let i=i+1; done

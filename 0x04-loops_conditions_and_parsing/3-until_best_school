@@ -2,4 +2,5 @@
 # This script is displaying "Best School" 10 times using until loop
 
 i=0
-until [ ! $i -lt 10 ]; do echo "Best School"; i=`expr $i + 1`; done
+until [ $COUNTER -lt 1 ]; do
+    echo "Holberton School"; let COUNTER-=1; done
