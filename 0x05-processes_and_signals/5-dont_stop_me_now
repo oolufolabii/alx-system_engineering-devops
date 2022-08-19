@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# a Bash script that displays To infinity and beyond indefinitely stopped using "kill"
+
+kill "$(pgrep -f 4-to_infinity_and_beyond)"
