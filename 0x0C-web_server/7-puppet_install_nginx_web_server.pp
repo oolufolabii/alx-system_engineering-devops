@@ -1,5 +1,4 @@
 # Puppet manifest to install nginx
-
 package { 'nginx':
   ensure => installed,
 }
@@ -11,10 +10,11 @@ file_line { 'aaaaa':
   line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
 }
 
-file { 'The home page':
-  ensure  => file,
-  path    => '/var/www/html/index.html',
-  mode    => '0744',
-  owner   => 'www-data',
-  content => "Hello World!\n"
+file { '/var/www/html/index.html':
+  content => 'Hello World!',
+}
+
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx'],
 }
