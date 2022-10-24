@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Script to installs, configure, and start the load balancer
 
-apt-get update
-apt-get -y install --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.4
-apt-get -y install haproxy
+sudo apt-get update
+sudo apt-get -y install --no-install-recommends software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-2.4
+sudo apt-get -y install haproxy
 
 # the load balancer's configuration
 DOMAIN_NAME='oolufolabii.tech'
@@ -49,7 +49,7 @@ else
 fi
 
 if [ "$(pgrep -c haproxy)" -le 0 ]; then
-	service haproxy start
+	sudo service haproxy start
 else
-	service haproxy restart
+	sudo service haproxy restart
 fi
