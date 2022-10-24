@@ -8,8 +8,8 @@ ufw allow 'Nginx HTTP'
 sudo mkdir -p /var/www/html /var/www/error
 sudo chmod -R 755 /var/www
 
-sudo echo 'Hello World!' > /var/www/html/index.html
-sudo echo -e "Ceci n\x27est pas une page" > /var/www/error/404.html
+echo 'Hello World!' > /var/www/html/index.html
+echo -e "Ceci n\x27est pas une page" > /var/www/error/404.html
 # Server configuration
 SERVER_CONFIG=\
 "server {
@@ -32,7 +32,7 @@ SERVER_CONFIG=\
 		add_header X-Served-By \$hostname;
 	}
 }"
-bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+sudo bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
 if [ "$(pgrep -c nginx)" -le 0 ]; then
 	sudo service nginx start
 else
