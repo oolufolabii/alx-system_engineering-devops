@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Script to install, congfigure and start server. header included.
 
-apt-get update
-apt-get -y install nginx
+sudo apt-get update
+sudo apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 mkdir -p /var/www/html /var/www/error
