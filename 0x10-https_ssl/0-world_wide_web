@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 # Retrieve domain name information.
-# 	Usage: domain_info domain subdomains
-# 	Example 1: domain_info google.com www
-# 	Example 2: domain_info google.com 'www photos maps mail'
 domain_info () {
     
     if [ "$#" -eq 2 ]; then
