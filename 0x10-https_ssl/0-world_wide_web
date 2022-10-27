@@ -4,26 +4,17 @@
 # 	Usage: domain_info domain subdomains
 # 	Example 1: domain_info google.com www
 # 	Example 2: domain_info google.com 'www photos maps mail'
-domain_info() {
-	domain="$1"
-	subdomains=()
-	readarray -t subdomains < <(echo "$2" | tr ' ' '\n')
-	for ((i = 0; i < "${#subdomains[@]}"; i++)) do
-		subdomain="${subdomains[i]}"
-		output_awk='{print "The subdomain", "'
-		output_awk="$output_awk$subdomain is a"
-		output_awk="$output_awk\", \$7, \"record and points to\", \$8}"
-		dig "$subdomain.$domain" \
-			| grep -A1 'ANSWER SECTION:' \
-			| tr '\n' ' ' \
-			| awk "$output_awk"
-	done
+domain_info () {
+    
+    if [ "$#" -eq 2 ]; then
+        dig $2.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); split(a[4],b,"."); printf "The subdomain %s is a %s record and points to %s\n",b[1], a[7], a[8]}'
+    elif [ "$#" -eq 1 ]; then
+        dig www.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain www is a %s record and points to %s\n", a[7], a[8]}'
+        dig lb-01.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain lb-01 is a %s record and points to %s\n", a[7], a[8]}'
+        dig web-01.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain web-01 is a %s record and points to %s\n", a[7], a[8]}'
+        dig web-02.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain web-02 is a %s record and points to %s\n", a[7], a[8]}'
+    fi
+
 }
 
-if [ "${#BASH_ARGV[@]}" -ge '2' ]; then
-	domain_info "$1" "$2"
-elif [ "${#BASH_ARGV[@]}" -ge '1' ]; then
-	domain_info "$1" "www lb-01 web-01 web-02"
-else
-	exit
-fi
+domain_info $1 $2
