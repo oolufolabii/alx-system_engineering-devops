@@ -1,27 +1,16 @@
 #!/usr/bin/env bash
-
-# Retrieve domain name information.
+# Retrieve domain name information including subdomain and ip address.
 domain_info () {
- if [ "$#" -ge 2 ]
- then
-  subdomain="$2.$1"
-  record=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$4}')
-  ip=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$5}')
-  echo "The subdomain $2 is a"$record" record and points to"$ip""
- else
-  declare -a subdomains=("www" "lb-01" "web-01" "web-02")
-  for x in "${subdomains[@]}"; do
-   subdomain="$x.$1"
-   record=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$4}')
-   ip=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$5}')
-   echo "The subdomain $x is a"$record" record and points to"$ip""
- done 
- fi
+    
+    if [ "$#" -eq 2 ]; then
+        dig $2.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); split(a[4],b,"."); printf "The subdomain %s is a %s record and points to %s\n",b[1], a[7], a[8]}'
+    elif [ "$#" -eq 1 ]; then
+        dig www.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain www is a %s record and points to %s\n", a[7], a[8]}'
+        dig lb-01.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain lb-01 is a %s record and points to %s\n", a[7], a[8]}'
+        dig web-01.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain web-01 is a %s record and points to %s\n", a[7], a[8]}'
+        dig web-02.$1 | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk '{split($0,a," "); printf "The subdomain web-02 is a %s record and points to %s\n", a[7], a[8]}'
+    fi
+
 }
 
-if [ "$#" -ge 2 ]
- then
- domain_info $1 $2
-else
- domain_info $1
-fi
+domain_info $1 $2
