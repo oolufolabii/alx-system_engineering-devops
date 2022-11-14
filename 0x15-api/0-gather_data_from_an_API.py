@@ -3,18 +3,17 @@
 about his/her To-do list progress.
 '''
 
-import requests
-import sys
-
-
 API_URL = 'https://jsonplaceholder.typicode.com'
 
 
 if __name__ == "__main__":
+    import requests
+    import sys
 
     userId = sys.argv[1]
-    user = requests.get("{}/users/{}"
-                        .format(API_URL, userId))
+    user = requests.get
+    ("{}/users/{}"
+     .format(API_URL, userId))
 
     name = user.json().get('name')
 
