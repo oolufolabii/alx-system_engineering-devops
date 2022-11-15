@@ -11,17 +11,17 @@ if __name__ == "__main__":
 
     users = requests.get("{}/users".format(API_URL)).json()
     todos = requests.get('{}/todos'.format(API_URL)).json()
-    todoAll = {}
+    all_todos = {}
 
     for user in users:
-        taskList = []
+        task_list = []
         for task in todos:
             if task.get('userId') == user.get('id'):
-                taskDict = {"username": user.get('username'),
+                task_dict = {"username": user.get('username'),
                             "task": task.get('title'),
                             "completed": task.get('completed')}
-                taskList.append(taskDict)
-        todoAll[user.get('id')] = taskList
+                task_list.append(task_dict)
+        all_todos[user.get('id')] = task_list
 
     with open('todo_all_employees.json', mode='w') as file:
-        json.dump(todoAll, file)
+        json.dump(all_todos, file)
