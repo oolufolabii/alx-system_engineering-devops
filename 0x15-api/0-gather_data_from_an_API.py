@@ -3,32 +3,30 @@
 about his/her To-do list progress.
 '''
 
-API_URL = 'https://jsonplaceholder.typicode.com'
-
-
 if __name__ == "__main__":
+
+    import re
     import requests
     import sys
 
-    userId = sys.argv[1]
-    user = requests.get
-    ("{}/users/{}"
-     .format(API_URL, userId))
+    API_URL = 'https://jsonplaceholder.typicode.com'
 
-    name = user.json().get('name')
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            user_id = int(sys.argv[1])
 
-    todos = requests.get('{}/todos'.format(API_URL))
-    totalTasks = 0
-    completed = 0
+        user = requests.get('{}/users/{}'.format(API_URL, user_id)).json()
+        name = user.get('name')
+        todos_req = requests.get('{}/todos'.format(API_URL)).json()
 
-    for task in todos.json():
-        if task.get('userId') == int(userId):
-            totalTasks += 1
-            if task.get('completed'):
-                completed += 1
-
-    print('Employee {} is done with tasks({}/{}):'
-          .format(name, completed, totalTasks))
-
-    print('\n'.join(["\t " + task.get('title') for task in todos.json()
-          if task.get('userId') == int(userId) and task.get('completed')]))
+        todos = list(filter(lambda x: x.get('userId') == id, todos_req))
+        todos_done = list(filter(lambda x: x.get('completed'), todos))
+        print(
+            'Employee {} is done with tasks({}/{}):'.format(
+                name,
+                len(todos_done),
+                len(todos)
+            )
+        )
+        for todo_done in todos_done:
+            print('\t {}'.format(todo_done.get('title')))
