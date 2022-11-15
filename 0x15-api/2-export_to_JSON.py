@@ -7,7 +7,6 @@ import sys
 
 
 API_URL = 'https://jsonplaceholder.typicode.com'
-'''The API's URL.'''
 
 
 if __name__ == '__main__':
