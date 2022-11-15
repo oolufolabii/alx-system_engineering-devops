@@ -8,7 +8,6 @@ if __name__ == "__main__":
 
     import json
     import requests
-    import sys
 
     users = requests.get("{}/users".format(API_URL)).json()
     todos = requests.get('{}/todos'.format(API_URL)).json()
