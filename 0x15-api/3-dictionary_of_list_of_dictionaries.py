@@ -6,27 +6,23 @@ API_URL = 'https://jsonplaceholder.typicode.com'
 
 if __name__ == "__main__":
 
+    import json
     import requests
     import sys
-    import json
 
-    users = requests.get("{}/users".format(API_URL))
-    users_json = users.json()
+    users = requests.get("{}/users".format(API_URL)).json()
+    todos = requests.get('{}/todos'.format(API_URL)).json()
+    todoAll = {}
 
-    todos = requests.get('{}/todos'.format(API_URL))
-    todos_json = todos.json()
-
-    todo_general = {}
-
-    for user in users_json:
-        task_list = []
-        for task in todos_json:
+    for user in users:
+        taskList = []
+        for task in todos:
             if task.get('userId') == user.get('id'):
-                task_dict = {"username": user.get('username'),
-                             "task": task.get('title'),
-                             "completed": task.get('completed')}
-                task_list.append(task_dict)
-        todo_general[user.get('id')] = task_list
+                taskDict = {"username": user.get('username'),
+                            "task": task.get('title'),
+                            "completed": task.get('completed')}
+                taskList.append(taskDict)
+        todoAll[user.get('id')] = taskList
 
     with open('todo_all_employees.json', mode='w') as file:
-        json.dump(todo_general, file)
+        json.dump(todoAll, file)
