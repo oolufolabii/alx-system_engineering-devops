@@ -3,11 +3,12 @@
 list containing the titles of all hot articles for a given subreddit.
 '''
 
+
 def recurse(subreddit, hot_list=[], n=0, after=None):
     '''Retrieves a list of hot posts from a given subreddit.
     '''
     import requests
-    
+
     api_headers = {
         'Accept': 'application/json',
         'User-Agent': ' '.join([
@@ -21,7 +22,8 @@ def recurse(subreddit, hot_list=[], n=0, after=None):
     sort_param = 'hot'
     limit = 30
     res = requests.get(
-        'https://www.reddit.com/r/{}/.json?sort={}&limit={}&count={}&after={}'.format(
+        'https://www.reddit.com/r/{}/.json?sort={}&limit={}&count='
+        '{}&after={}'.format(
             subreddit,
             sort_param,
             limit,
