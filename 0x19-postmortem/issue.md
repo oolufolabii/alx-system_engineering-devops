@@ -6,7 +6,8 @@
 
 The issues were based off the web-debugging 3 task for the company ALX, arising due to Devops and server malfunction. I had issues with the code output and they needed correction after trying to correct the issues. The issues were later sorted and the malfunctions resolved
 
-# Timeline
+## Timeline
+
 - 9:10 AM : Updates push
 - 9:15 AM : Noticing the problem
 - 9:15 AM : Escalate to both front end and backend teams
@@ -18,7 +19,8 @@ The issues were based off the web-debugging 3 task for the company ALX, arising 
 - 9:55 AM : Server restart begins
 - 10:00 AM : 100% traffic back online with the new updates
 
-#3 Root cause and resolution
+## Root cause and resolution
+
 After rolling back changes we knew that the changes were made by the front end team so we took the broken changes and run them on a test server which replicated same problem, our server uses apache2 and apache2 error logs didn't give enought infomation about the problem so we traced the apache2 process using strace and when a request is sent strace tool catchs a lot of error and after some scaning fo these errors we found the error wich is a typo in page file extention >
 > .phpp
 
